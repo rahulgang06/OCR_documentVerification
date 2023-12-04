@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block title %}OCR Result - Document Checker{% endblock %}
+
+{% block header %}OCR Result{% endblock %}
+
+{% block content %}
+    <h2>OCR Result</h2>
+    <p>{{ ocr_result|sha256 }}</p>
+
+    {% if uploaded_document.ocr_result_hash %}
+        {% if ocr_result|sha256 != uploaded_document.ocr_result_hash %}
+            <p style="color: red;">Tampering detected!</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}
